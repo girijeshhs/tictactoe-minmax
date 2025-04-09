@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tic Tac Toe - Minimax Algorithm</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./styles/style.css"> <!-- If it's in a "styles" folder -->
+    </head>
+    <body>
+        <div class="main-container">
+            <!-- Left Sidebar -->
+            <div class="sidebar fade-in">
+                <h2>Fun Facts</h2>
+                <ul>
+                    <li>Tic Tac Toe is also known as "Noughts and Crosses."</li>
+                    <li>The game dates back to ancient Egypt!</li>
+                    <li>Minimax ensures the AI never loses (if played optimally).</li>
+                    <li>It's impossible to beat the AI in this version!</li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="container fade-in">
+                <h1>Tic Tac Toe Using Minimax Algorithm</h1>
+                
+                <!-- Game Controls -->
+                <div class="game-controls">
+                    <div class="difficulty-selector">
+                        <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+                        <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+                        <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+                    </div>
+                </div>
+                
+                <!-- Turn Indicator -->
+                <div class="turn-indicator">
+                    <div class="player-indicator active">Your Turn (X)</div>
+                    <div class="player-indicator">
+                        <div class="ai-thinking">
+                            AI Thinking
+                            <div class="thinking-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game Board -->
+                <div class="game-board">
+                    <div class="cell" data-index="0"></div>
+                    <div class="cell" data-index="1"></div>
+                    <div class="cell" data-index="2"></div>
+                    <div class="cell" data-index="3"></div>
+                    <div class="cell" data-index="4"></div>
+                    <div class="cell" data-index="5"></div>
+                    <div class="cell" data-index="6"></div>
+                    <div class="cell" data-index="7"></div>
+                    <div class="cell" data-index="8"></div>
+                </div>
+                
+                <!-- Game Status -->
+                <div class="status">Game in progress...</div>
+                
+                <!-- Scoreboard -->
+                <div class="scoreboard">
+                    <div class="score-item">
+                        <div class="score-label">You</div>
+                        <div class="score-value" id="player-score">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Draws</div>
+                        <div class="score-value" id="draw-score">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">AI</div>
+                        <div class="score-value" id="ai-score">0</div>
+                    </div>
+                </div>
+                
+                <!-- Buttons -->
+                <div class="buttons">
+                    <button id="restart-btn">Restart Game</button>
+                    <button class="settings" id="settings-btn">Settings</button>
+                </div>
+                
+                <!-- Algorithm Explanation -->
+                <div class="explanation">
+                    <h2>How the Minimax Algorithm Works</h2>
+                    <p>The Minimax algorithm is a decision-making algorithm used in two-player games like Tic Tac Toe. It evaluates all possible moves and chooses the one that maximizes the AI's chances of winning while minimizing the player's chances.</p>
+                    
+                    <div class="algorithm-toggle">
+                        Show Algorithm Steps <span class="icon">▼</span>
+                    </div>
+                    
+                    <div class="algorithm-steps">
+                        <ul>
+                            <li>The algorithm simulates all possible moves for both the player and the AI.</li>
+                            <li>It builds a game tree representing all possible game states.</li>
+                            <li>Each terminal state (win/lose/draw) gets a score: +10 for AI win, -10 for player win, 0 for draw.</li>
+                            <li>Working backward, the AI chooses moves that lead to the highest score, assuming the player plays optimally.</li>
+                            <li>The algorithm prunes branches that won't affect the final decision, making it more efficient.</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Here's how it works:</p>
+                    <ul>
+                        <li>AI evaluates every valid move</li>
+                        <li>For each move, it simulates the opponent's optimal response</li>
+                        <li>This continues until reaching game-ending states</li>
+                        <li>The AI then selects the move with the best outcome, assuming perfect play from both sides</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar fade-in">
+                <h2>Tips to Win</h2>
+                <ul>
+                    <li>Always start in the center or a corner.</li>
+                    <li>Block your opponent's winning moves.</li>
+                    <li>Force the AI into a draw if you can't win.</li>
+                    <li>Practice makes perfect!</li>
+                    <li>Try to create a fork (two winning paths).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Game Result Modal -->
+        <div class="result-modal">
+            <span class="emoji">🎮</span>
+            <h2>Game Over!</h2>
+            <p id="result-message">It's a draw!</p>
+            <button id="play-again-btn">Play Again</button>
+        </div>
+        <div class="overlay"></div>
+
+        <!-- Optional internal script for UI behavior -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const algorithmToggle = document.querySelector('.algorithm-toggle');
+                const algorithmSteps = document.querySelector('.algorithm-steps');
+                
+                algorithmToggle.addEventListener('click', function () {
+                    algorithmSteps.classList.toggle('open');
+                    algorithmToggle.classList.toggle('active');
+                });
+
+                const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+                difficultyBtns.forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        difficultyBtns.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        // Hook for difficulty change
+                    });
+                });
+
+                document.getElementById('play-again-btn').addEventListener('click', function () {
+                    document.querySelector('.result-modal').classList.remove('active');
+                    document.querySelector('.overlay').classList.remove('active');
+                    // Reset game logic here
+                });
+            });
+        </script>
+
+        <!-- Link to your main JavaScript game logic -->
+        <script src="./scripts/app.js"></script>
+    </body>
+</html>
