@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
+    <aside class="sidebar">
+        
+    
+        <!-- Rules Section -->
+        
+    </aside>
+    
     <canvas id="starfield"></canvas>
 
     <div class="main-container">
@@ -20,11 +27,18 @@
                 <li>Minimax ensures the AI never loses (if played optimally).</li>
                 <li>It's impossible to beat the AI in this version!</li>
             </ul>
+            <h2>Rules</h2>
+        <ul>
+            <li>The game is played on a 3x3 grid.</li>
+            <li>Players take turns placing their mark (X or O) in an empty cell.</li>
+            <li>The first player to get three of their marks in a row wins.</li>
+            <li>If all cells are filled and no player has three in a row, the game ends in a draw.</li>
+        </ul>
         </aside>
 
         <!-- Main Content -->
         <main class="container">
-            <h1>Tic Tac Toe Using Minimax Algorithm</h1>
+            <h1>Tic Tac Toe Using Minmax Algorithm</h1>
 
             <!-- Turn Indicator -->
             <section class="turn-indicator">
