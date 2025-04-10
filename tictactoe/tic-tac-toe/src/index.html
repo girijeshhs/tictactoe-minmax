@@ -6,34 +6,53 @@
     <title>Tic Tac Toe - Minimax</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
-    <aside class="sidebar">
-        
-    
-        <!-- Rules Section -->
-        
-    </aside>
-    
     <canvas id="starfield"></canvas>
 
     <div class="main-container">
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-            <h2>Fun Facts</h2>
-            <ul>
-                <li>Tic Tac Toe is also known as "Noughts and Crosses."</li>
-                <li>The game dates back to ancient Egypt!</li>
-                <li>Minimax ensures the AI never loses (if played optimally).</li>
-                <li>It's impossible to beat the AI in this version!</li>
-            </ul>
-            <h2>Rules</h2>
-        <ul>
-            <li>The game is played on a 3x3 grid.</li>
-            <li>Players take turns placing their mark (X or O) in an empty cell.</li>
-            <li>The first player to get three of their marks in a row wins.</li>
-            <li>If all cells are filled and no player has three in a row, the game ends in a draw.</li>
-        </ul>
+        <!-- Left Sidebar - Fun Facts -->
+        <aside class="sidebar fun-facts">
+            <div class="sidebar-header">
+                <i class="fas fa-lightbulb icon-glow"></i>
+                <h2>Fun Facts</h2>
+            </div>
+            <div class="sidebar-content">
+                <ul class="interactive-list">
+                    <li class="fact-item" data-tooltip="Tic Tac Toe is played worldwide under different names!">
+                        <span class="fact-icon"><i class="fas fa-globe"></i></span>
+                        <span class="fact-text">Tic Tac Toe is also known as "Noughts and Crosses."</span>
+                    </li>
+                    <li class="fact-item" data-tooltip="Ancient Egyptians played a version on papyrus scrolls!">
+                        <span class="fact-icon"><i class="fas fa-pyramid"></i></span>
+                        <span class="fact-text">The game dates back to ancient Egypt!</span>
+                    </li>
+                    <li class="fact-item" data-tooltip="The AI calculates all possible future moves to make the best decision!">
+                        <span class="fact-icon"><i class="fas fa-robot"></i></span>
+                        <span class="fact-text">Minimax ensures the AI never loses (if played optimally).</span>
+                    </li>
+                    <li class="fact-item" data-tooltip="Try to force a draw - it's your best outcome!">
+                        <span class="fact-icon"><i class="fas fa-chess"></i></span>
+                        <span class="fact-text">It's impossible to beat the AI in this version!</span>
+                    </li>
+                    <li class="fact-item" data-tooltip="The first computer version was created in 1952!">
+                        <span class="fact-icon"><i class="fas fa-microchip"></i></span>
+                        <span class="fact-text">One of the earliest computer games ever created!</span>
+                    </li>
+                </ul>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="card-front">
+                            <p>Click for a random fact!</p>
+                            <i class="fas fa-random"></i>
+                        </div>
+                        <div class="card-back">
+                            <p id="random-fact">There are 255,168 possible games of Tic Tac Toe!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -103,16 +122,9 @@
                 <div class="algorithm-steps">
                     <ul>
                         <li>The algorithm simulates all possible moves for both the player and the AI.</li>
-                        <li>It builds a game tree representing all possible game states.</li>
-                        <li>Each terminal state (win/lose/draw) gets a score: +10 for AI win, -10 for player win, 0 for draw.</li>
-                        <li>Working backward, the AI chooses moves that lead to the highest score, assuming the player plays optimally.</li>
-                        <li>The algorithm prunes branches that won't affect the final decision, making it more efficient.</li>
-                    </ul>
-
-                    <p>Here's how it works:</p>
-                    <ul>
-                        <li>AI evaluates every valid move</li>
-                        <li>For each move, it simulates the opponent's optimal response</li>
+                        <li>It assigns a score to each possible outcome: +10 for AI win, -10 for player win, 0 for draw.</li>
+                        <li>For AI's turn, it maximizes the score; for player's turn, it minimizes the score.</li>
+                        <li>The algorithm works recursively, exploring the game tree.</li>
                         <li>This continues until reaching game-ending states</li>
                         <li>The AI then selects the move with the best outcome, assuming perfect play from both sides</li>
                     </ul>
@@ -120,16 +132,76 @@
             </section>
         </main>
 
-        <!-- Right Sidebar -->
-        <aside class="sidebar">
-            <h2>Tips to Win</h2>
-            <ul>
-                <li>Always start in the center or a corner.</li>
-                <li>Block your opponent's winning moves.</li>
-                <li>Force the AI into a draw if you can't win.</li>
-                <li>Practice makes perfect!</li>
-                <li>Try to create a fork (two winning paths).</li>
-            </ul>
+        <!-- Right Sidebar - Rules and Tips -->
+        <aside class="sidebar rules-tips">
+            <div class="rules-section">
+                <div class="sidebar-header">
+                    <i class="fas fa-book-open icon-glow teal-glow"></i>
+                    <h2 class="rules-title">Rules</h2>
+                </div>
+                <div class="sidebar-content">
+                    <ul class="interactive-list rules-list">
+                        <li class="rule-item" data-tooltip="The classic 3x3 grid layout!">
+                            <span class="rule-icon"><i class="fas fa-th"></i></span>
+                            <span class="rule-text">The game is played on a 3x3 grid.</span>
+                        </li>
+                        <li class="rule-item" data-tooltip="You're X, the AI is O">
+                            <span class="rule-icon"><i class="fas fa-exchange-alt"></i></span>
+                            <span class="rule-text">Players take turns placing their mark (X or O) in an empty cell.</span>
+                        </li>
+                        <li class="rule-item" data-tooltip="Horizontal, vertical, or diagonal lines all count!">
+                            <span class="rule-icon"><i class="fas fa-trophy"></i></span>
+                            <span class="rule-text">The first player to get three of their marks in a row wins.</span>
+                        </li>
+                        <li class="rule-item" data-tooltip="A full board with no winner results in a draw">
+                            <span class="rule-icon"><i class="fas fa-balance-scale"></i></span>
+                            <span class="rule-text">If all cells are filled and no player has three in a row, the game ends in a draw.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tips-section">
+                <div class="sidebar-header">
+                    <i class="fas fa-lightbulb icon-glow yellow-glow"></i>
+                    <h2>Tips to Win</h2>
+                </div>
+                <div class="sidebar-content">
+                    <ul class="interactive-list tips-list">
+                        <li class="tip-item" data-tooltip="The center gives you the most winning opportunities!">
+                            <span class="tip-icon"><i class="fas fa-bullseye"></i></span>
+                            <span class="tip-text">Always start in the center or a corner.</span>
+                        </li>
+                        <li class="tip-item" data-tooltip="Don't let the AI get two in a row!">
+                            <span class="tip-icon"><i class="fas fa-shield-alt"></i></span>
+                            <span class="tip-text">Block your opponent's winning moves.</span>
+                        </li>
+                        <li class="tip-item" data-tooltip="Sometimes a draw is the best possible outcome!">
+                            <span class="tip-icon"><i class="fas fa-handshake"></i></span>
+                            <span class="tip-text">Force the AI into a draw if you can't win.</span>
+                        </li>
+                        <li class="tip-item" data-tooltip="The more you play, the better you'll get!">
+                            <span class="tip-icon"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="tip-text">Practice makes perfect!</span>
+                        </li>
+                        <li class="tip-item" data-tooltip="Create two potential winning moves at once!">
+                            <span class="tip-icon"><i class="fas fa-code-branch"></i></span>
+                            <span class="tip-text">Try to create a fork (two winning paths).</span>
+                        </li>
+                    </ul>
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card-front">
+                                <p>Click for a pro tip!</p>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="card-back">
+                                <p id="random-tip">Corner moves are stronger than edge moves!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </aside>
     </div>
 
@@ -158,6 +230,88 @@
                 document.querySelector('.overlay').classList.remove('active');
                 // Game reset logic goes here
             });
+            
+            // Interactive sidebar elements
+            const factItems = document.querySelectorAll('.fact-item');
+            const ruleItems = document.querySelectorAll('.rule-item');
+            const tipItems = document.querySelectorAll('.tip-item');
+            
+            // Add hover effect and tooltip functionality
+            const allInteractiveItems = [...factItems, ...ruleItems, ...tipItems];
+            
+            allInteractiveItems.forEach(item => {
+                const tooltip = item.getAttribute('data-tooltip');
+                
+                item.addEventListener('mouseenter', () => {
+                    const tooltipEl = document.createElement('div');
+                    tooltipEl.classList.add('custom-tooltip');
+                    tooltipEl.textContent = tooltip;
+                    item.appendChild(tooltipEl);
+                    
+                    setTimeout(() => {
+                        tooltipEl.classList.add('show');
+                    }, 50);
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    const tooltipEl = item.querySelector('.custom-tooltip');
+                    if (tooltipEl) {
+                        tooltipEl.classList.remove('show');
+                        setTimeout(() => {
+                            tooltipEl.remove();
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Fixed flip card functionality
+            const funFactsFlipCard = document.querySelector('.fun-facts .flip-card');
+            const tipsFlipCard = document.querySelector('.tips-section .flip-card');
+            
+            if (funFactsFlipCard) {
+                funFactsFlipCard.addEventListener('click', function() {
+                    const innerCard = this.querySelector('.flip-card-inner');
+                    innerCard.classList.toggle('flipped');
+                    
+                    // If card is flipped to show random fact, update the fact
+                    if (innerCard.classList.contains('flipped')) {
+                        const randomFacts = [
+                            "There are 255,168 possible games of Tic Tac Toe!",
+                            "The center position is played in 90% of games!",
+                            "Tic Tac Toe is a 'solved game' - perfect play leads to a draw.",
+                            "The game is called 'Noughts and Crosses' in the UK.",
+                            "The first computer version was created in 1952!"
+                        ];
+                        
+                        document.getElementById('random-fact').textContent = 
+                            randomFacts[Math.floor(Math.random() * randomFacts.length)];
+                    }
+                });
+            }
+            
+            if (tipsFlipCard) {
+                tipsFlipCard.addEventListener('click', function() {
+                    const innerCard = this.querySelector('.flip-card-inner');
+                    innerCard.classList.toggle('flipped');
+                    
+                    // If card is flipped to show random tip, update the tip
+                    if (innerCard.classList.contains('flipped')) {
+                        const randomTips = [
+                            "Corner moves are stronger than edge moves!",
+                            "If you go first, try starting in a corner.",
+                            "Watch for diagonal winning opportunities!",
+                            "The center position gives you the most winning paths.",
+                            "Try to create two threats at once with a fork."
+                        ];
+                        
+                        document.getElementById('random-tip').textContent = 
+                            randomTips[Math.floor(Math.random() * randomTips.length)];
+                    }
+                });
+            }
+            
+            // Log to console to verify script is running
+            console.log('Interactive elements initialized');
         });
     </script>
 
